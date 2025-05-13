@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Ecommerce.Payment.Application\Ecommerce.Payment.Application.csproj" />
+      <ProjectReference Include="..\Ecommerce.Payment.Domain\Ecommerce.Payment.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+      <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
+    </ItemGroup>
+
+</Project>
