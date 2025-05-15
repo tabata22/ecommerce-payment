@@ -13,7 +13,7 @@ public class OrderQueries :  IOrderQueries
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<Order>> GetOrders(Guid customerId, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<Order>> GetOrdersAsync(Guid customerId, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Orders
             .AsNoTracking()
@@ -22,7 +22,7 @@ public class OrderQueries :  IOrderQueries
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<Order?> GetInvoice(Guid customerId, long orderId, CancellationToken cancellationToken = default)
+    public async Task<Order?> GetInvoiceAsync(Guid customerId, long orderId, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Orders
             .AsNoTracking()
