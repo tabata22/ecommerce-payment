@@ -15,8 +15,4 @@
       <ProjectReference Include="..\Ecommerce.Payment.Domain\Ecommerce.Payment.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Orders\Commands\" />
-    </ItemGroup>
-
 </Project>

@@ -27,5 +27,22 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
         
         builder.Property(x => x.TotalQuantity)
             .IsRequired();
+        
+        builder.OwnsOne(x => x.Address, sa =>
+        {
+            sa.Property(a => a.FullName).HasColumnName("address_full_name");
+            sa.Property(a => a.Phone).HasColumnName("address_phone");
+            sa.Property(a => a.Region).HasColumnName("address_region");
+            sa.Property(a => a.City).HasColumnName("address_city");
+            sa.Property(a => a.Street).HasColumnName("address_street");
+            sa.Property(a => a.ZipCode).HasColumnName("address_zip_code");
+
+            sa.ToJson();
+        });
+        
+        builder.HasMany(x => x.Items)
+            .WithOne(x => x.Order)
+            .HasForeignKey(x => x.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

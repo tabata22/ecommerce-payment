@@ -4,13 +4,29 @@ namespace Ecommerce.Payment.Domain.OrderAggregate;
 
 public class Order : BaseEntity
 {
-    public Order(Guid customerId)
+    public Order(
+        Guid customerId,
+        string? addressFullName,
+        string addressPhone,
+        string addressRegion,
+        string addressCity,
+        string addressStreet,
+        string addressZipCode)
     {
         CustomerId = customerId;
         Status = OrderStatus.Pending;
         ShippingAmount = 0;
         TotalPrice = 0;
         TotalQuantity = 0;
+        Address = new OrderAddress
+        {
+            FullName = addressFullName,
+            Phone = addressPhone,
+            Region = addressRegion,
+            City = addressCity,
+            Street = addressStreet,
+            ZipCode = addressZipCode
+        };
         Items = [];
     }
     
@@ -28,6 +44,8 @@ public class Order : BaseEntity
     
     public decimal TotalQuantity { get; private set; }
     
+    public OrderAddress Address { get; private set; }
+    
     public Transaction? Transaction { get; private set; }
     
     public ICollection<OrderItem> Items { get; private set; }
@@ -41,9 +59,7 @@ public class Order : BaseEntity
 
     public void Calculate()
     {
-        var itemsPrice = Items.Sum(i => i.Quantity * i.UnitPrice);
-        
-        TotalPrice = ShippingAmount + itemsPrice;
+        TotalPrice = Items.Sum(i => i.Quantity * i.UnitPrice);
         TotalQuantity = Items.Sum(i => i.Quantity);
     }
     
