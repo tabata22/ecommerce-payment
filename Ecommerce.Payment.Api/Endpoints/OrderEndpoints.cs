@@ -16,7 +16,7 @@ public static class OrderEndpoints
             CancellationToken cancellationToken = default
             ) =>
         {
-            var orders = await queries.GetOrders(userService.GetUserId, cancellationToken);
+            var orders = await queries.GetOrdersAsync(userService.GetUserId, cancellationToken);
             
             return Results.Ok(orders); 
         });
@@ -28,7 +28,7 @@ public static class OrderEndpoints
             CancellationToken cancellationToken = default
         ) =>
         {
-            var order = await queries.GetInvoice(userService.GetUserId, id, cancellationToken);
+            var order = await queries.GetInvoiceAsync(userService.GetUserId, id, cancellationToken);
             if (order is null)
             {
                 return Results.NotFound();

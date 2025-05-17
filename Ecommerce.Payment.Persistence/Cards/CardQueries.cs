@@ -13,13 +13,20 @@ public class CardQueries : ICardQueries
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<Card>> GetActiveCardsAsync(Guid customerId, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<GetCardsDto>> GetActiveCardsAsync(Guid customerId, CancellationToken cancellationToken = default)
     {
         var date = DateOnly.FromDateTime(DateTime.UtcNow);
         
         return await _dbContext.Cards
             .AsNoTracking()
-            .Where(c => c.CustomerId == customerId && c.ExpirationDate > date)
+            .Where(c => c.CustomerId == customerId)
+            .Select(c => new GetCardsDto
+            {
+                Id = c.Id,
+                Number = c.Number,
+                Type = c.Type,
+                IsExpired = c.ExpirationDate > date
+            })
             .ToListAsync(cancellationToken);
     }
 }
